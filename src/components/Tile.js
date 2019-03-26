@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// import '../styles/tile.css';
 
 class Tile extends Component {
     constructor(props) {
@@ -11,28 +10,30 @@ class Tile extends Component {
             nextColor: ''
         }
     }
-    componentDidMount() {
+    componentWillMount() {
         const animal = this.props.animals[Math.floor(Math.random()*this.props.animals.length)];
         const color = this.props.colors[Math.floor(Math.random()*this.props.colors.length)];
         const nextAnimal = this.props.animals[Math.floor(Math.random()*this.props.animals.length)];
-        const nextColor = this.props.colors[Math.floor(Math.random()*this.props.colors.length)];
-        console.warn("this.props = ",this.props);
-        
+        const nextColor = this.props.colors[Math.floor(Math.random()*this.props.colors.length)];        
 
         this.setState({animal, color, nextAnimal, nextColor})
-        // console.warn('animal = ', animal);
-        // console.warn('color = ', color);
     }
-
-    render(){
+    animateTiles(){
         const { animal, color } = this.state;
+        console.warn("this.state = ", this.state);
+        
+        return ( <div className="card" style={{background: color}}>
+                    <p className="text">
+                        {animal}
+                    </p> 
+                </div> );
+    }
+    render(){
         
         return (
-                <div className="card"style={{background: color}}>
-                <p className="text">
-                    {animal}
-                    </p> 
-                </div>
+            <div className="tile">
+                {this.animateTiles()}
+            </div>
         );
     }
 }
