@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './styles/main.css';
+import './styles/main.css';
 import Animals from './data/animal_names.json';
 import Colors from './data/colors.json';
 
@@ -45,7 +45,7 @@ class App extends Component {
       tiles.push(row);
       i++;
     }
-    
+
     return ( <div className ='grid' style={grid}>{tiles.map((rowArr, index) => {
       return <div key={index} className='row' style={row}>{rowArr}</div>;
     })}</div> )

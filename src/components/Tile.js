@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import TypeWriter from './TypeWriter.js';
+import '../styles/tile.css';
+
 
 class Tile extends Component {
     constructor(props) {
@@ -20,16 +23,12 @@ class Tile extends Component {
     }
     animateTiles(){
         const { animal, color } = this.state;
-        console.warn("this.state = ", this.state);
         
         return ( <div className="card" style={{background: color}}>
-                    <p className="text">
-                        {animal}
-                    </p> 
+                    <TypeWriter animal={animal}/>
                 </div> );
     }
     render(){
-        
         return (
             <div className="tile">
                 {this.animateTiles()}
