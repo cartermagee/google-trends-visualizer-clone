@@ -8,7 +8,7 @@ import Tile from './components/Tile.js';
 class App extends Component {
   constructor(props){
     super(props)
-    this.state= {
+    this.state = {
       colors: [],
       animals: [],
       rows: 5,
@@ -62,4 +62,3 @@ class App extends Component {
 }
 
 export default App;
-
