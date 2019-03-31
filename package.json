@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-router": "^5.0.0",

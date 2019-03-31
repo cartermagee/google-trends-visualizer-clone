@@ -1,81 +1,96 @@
-import React, {Component} from 'react';
-import '../styles/tile.css';
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import Card from './Card.js';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Switch } from "react-router-dom";
+import Slider from "../Slider";
+import Card from "./Card.js";
+import "../styles/tile.css";
 
 
-class Tile extends Component {
-    constructor(props) {
-        super(props)
-        this.nextCard = this.nextCard.bind(this)
+class Tile extends React.Component {
+  constructor(props) {
+    super(props);
+    console.warn("props = ", props.children);
 
-        this.state = {
-            animal: '',
-            animalIndex: '',
-            color: '',
-            colorIndex: '',
-            id: '',
-            appearCard: false
-        }
+    this.state = {
+      childPosition: Slider.CENTER,
+      curChild: props.children,
+      curUniqId: props.uniqId,
+      prevChild: null,
+      prevUniqId: null,
+      animationCallback: null,
+      
+      animal: '',
+      animalIndex: '',
+      color: '',
+      colorIndex: '',
+      id: '',
+      appearCard: true
+    };
+  }
+
+  componentWillMount() {
+    console.warn("props = ", this.props);
+    console.warn("state = ", this.state);
+
+    const animalIndex = Math.floor(Math.random()*this.props.animals.length);
+    const animal = this.props.animals[animalIndex];
+    const colorIndex = Math.floor(Math.random()*this.props.colors.length);
+    const color = this.props.colors[colorIndex];
+    const id = this.props.id;
+    this.setState({animal, color, id, appearCard: true});
+}
+  componentDidUpdate(prevProps, prevState) {
+    console.warn("currentState = ", this.state);
+    console.warn("prevProps= ", prevProps);
+    console.warn("prevState= ", prevState);
+    const prevUniqId = prevProps.uniqKey || prevProps.children.type;
+    const uniqId = this.props.uniqKey || this.props.children.type;
+
+    if (prevUniqId !== uniqId) {
+      this.setState({
+        childPosition: Slider.TO_LEFT,
+        curChild: this.props.children,
+        curUniqId: uniqId,
+        prevChild: prevProps.children,
+        prevUniqId,
+        animationCallback: this.swapChildren
+      });
     }
-    componentWillMount() {
-        const animalIndex = Math.floor(Math.random()*this.props.animals.length);
-        
-        const animal = this.props.animals[animalIndex];
- 
-        const colorIndex = Math.floor(Math.random()*this.props.colors.length);
-        
-        const color = this.props.colors[colorIndex];
-        
-        const id = this.props.id;
-        this.setState({animal, color, id, appearCard: true});
-    }
+  }
 
-    nextCard() {
-        console.warn("INNNN next card");
-        // this.setState({appearCard: false});
-        const newAnimalArray = this.props.animals.splice(this.state.animalArray);
-        const animal = newAnimalArray[Math.floor(Math.random()*newAnimalArray.length)];
-        if (animal === this.state.animal) {
-            console.warn("same animal");
-            // this.nextCard();
-        }
-        const newcolorArray = this.props.colors.splice(this.state.colorArray);
-        const color = newcolorArray[Math.floor(Math.random()*newcolorArray.length)];
-        if (color === this.state.color) {
-            console.warn("same color");
-            // this.nextCard();
-        }
-         this.setState({ color, animal, appearCard: true });
-    }
-    
-    render(){
-        const { animal, color, id, appearCard } = this.state;
-        const newId = id+animal;
-        
-        return (
-            <div className='tile'>
-                <TransitionGroup component={null}>
-                    <CSSTransition
-                        in={appearCard}
-                        appear={true}
-                        key={newId}
-                        timeout={5000}
-                        classNames="slide"
-                        >
-                        <Card id={id} animal={animal} color={color} nextCard={this.nextCard} />
+  swapChildren = () => {
+    this.setState({
+      childPosition: Slider.FROM_RIGHT,
+      prevChild: null,
+      prevUniqId: null,
+      animationCallback: null
+    });
+  };
 
-                    </CSSTransition>
-                </TransitionGroup> 
-            </div>
-        );
-    }
+  render() {
+    return (
+      <Slider
+        position={this.state.childPosition}
+        animationCallback={this.state.animationCallback}
+      >
+        {this.state.prevChild || this.state.curChild}
+      </Slider>
+    );
+  }
 }
 
-Tile.propTypes = {
-    animals: PropTypes.array.isRequired,
-    colors: PropTypes.array.isRequired
-}
+const animateSwitch = (CustomSwitch, AnimatorComponent) => ({
+  updateStep,
+  children
+}) => (
+  <Card  style={{background: "#fff", border: "1px solid red"}}
+    // render={({ location }) => (
+    //   <AnimatorComponent uniqKey={location.pathname} updateStep={updateStep}>
+    //     <CustomSwitch location={location}>{children}</CustomSwitch>
+    //   </AnimatorComponent>
+    // )}
+  />
+);
 
-export default Tile;
+const SwitchWithSlide = animateSwitch(Switch, Tile);
+
+export default SwitchWithSlide;

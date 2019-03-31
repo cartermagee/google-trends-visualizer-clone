@@ -1,0 +1,33 @@
+
+.left-appear {
+    opacity: 0;
+    z-index: 1;
+    left: -100%;
+}
+.left-appear.left-appear-active {
+    opacity: 1;
+    transition: opacity 1000ms linear;
+}
+
+.left-enter {
+    opacity: 0;
+    z-index: 1;
+    left: 0%;
+}
+.left-enter.left-enter-active {
+    opacity: 1;
+    transition: all 5000ms linear 5000ms;
+}
+
+.left-exit {
+    opacity: 1;
+    top: 100%;
+}
+.left-exit.left-exit-active {
+    opacity: 0;
+    transition: all 5000ms linear;
+}
+.left-exit-done {
+    opacity: 0;
+    z-index: 0;
+}
