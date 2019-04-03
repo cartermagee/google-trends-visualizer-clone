@@ -1,13 +1,13 @@
 import React from "react";
 import '../styles/typeWriter.css';
-import { clearInterval } from "timers";
 
 class TypeWriter extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
         text: '',
-        loopNum: 0,
+        start: 0,
+        typingSpeed: 0,
       }
     }
   
@@ -33,15 +33,23 @@ class TypeWriter extends React.Component {
 
     if (text === animal){
       console.log("DONE");
-      // setTimeout(this.props.nextCard(),3000)
+      // setTimeout(console.log("DONE timeout"),3000)
       return;
     }
-      setTimeout(this.handleType, 150);
-    };
-
+    setTimeout(this.handleType, 150);
+  };
+  
+  handleClick() {
+    console.warn("CLICKED INNNNN");
+    
+    setTimeout(this.props.nextCard(), 3000)
+      // this.setState({text: "left"});
+    }
     render() {    
       return (
         <p className="text fade-in">
+          <button onClick={()=> this.handleClick()}>click</button>
+
           <span >{ this.state.text }</span>
           <span id="cursor"></span>
         </p>

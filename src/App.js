@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './styles/main.css';
 import Animals from './data/animal_names.json';
 import Colors from './data/colors.json';
-import Card from './components/Card.js';
+import Transitions from './data/transitions.json';
 
 import Tile from './components/Tile2.js';
 
@@ -14,15 +14,15 @@ class App extends Component {
       animals: [],
       rows: 5,
       columns: 5,
-      transition: ''
+      transitions: []
     }
   }
   componentWillMount(){
-    this.setState({animals: Animals, colors: Colors});
+    this.setState({animals: Animals, colors: Colors, transitions: Transitions});
   }
 
   renderGrid() {
-    const { colors, animals, rows, columns } = this.state;
+    const { colors, animals, rows, columns, transitions } = this.state;
     const grid = {
         width: '100%',
         height: '100%',
@@ -41,9 +41,7 @@ class App extends Component {
       let row = [];
       while (j < columns) {
         let id = i+'-'+j;
-        row.push(<Tile id={id} key={id} animals={animals} colors={colors}>
-          {this.props.children}
-        </Tile>);
+        row.push(<Tile id={id} key={id} animals={animals} transitions={transitions} colors={colors}/>);
         j++;
       }
       tiles.push(row);
@@ -54,17 +52,11 @@ class App extends Component {
       return <div key={index} className='row' style={row}>{rowArr}</div>;
     })}</div> )
   }
-  handleClick() {
-    console.warn("CLICKED INNNNN");
-
-    this.setState({transition: "left"});
-  }
 
   render() {
     return (
       <main>
         {this.renderGrid()}
-        <button onClick={()=> this.handleClick()}>click</button>
       </main>
     );
   }

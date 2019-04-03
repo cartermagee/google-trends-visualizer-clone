@@ -14,10 +14,10 @@
     height: 100%;
     text-transform: capitalize;
     width: 100%;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 .next {
-border: 1px solid rebeccapurple;
+    border: 1px solid rebeccapurple;
 }
 
 /* 
