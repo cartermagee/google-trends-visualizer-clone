@@ -102,15 +102,16 @@ class Tile extends Component {
         const { appearCard, card } = this.state;
         // const newId = id+animal;
     console.warn(this.state);
-    
+        // const childFactory = 
         return (
             <TransitionGroup component='div' className='tile'>
                 <CSSTransition
+                    key={card.id}
                     timeout={2000}
                     classNames='right'
                     unmountOnExit
-                >
-                    <Card key={card.id} animal={card.animal} color={card.color} speed={card.speed} nextCard={this.nextCard}/>
+                > 
+                    <Card animal={card.animal} color={card.color} speed={card.speed} nextCard={this.nextCard}/>
                 </CSSTransition>
             </TransitionGroup>
 
