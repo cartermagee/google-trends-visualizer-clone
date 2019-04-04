@@ -1,90 +1,21 @@
-
-.left-appear {
-    opacity: 0;
-    /* z-index: 0; */
-    /* left: -100%; */
-}
-.left-appear.left-appear-active {
-    opacity: 1;
-    transition: opacity 200ms linear;
-}
-
 .left-enter {
-    opacity: 1;
-    z-index: 1;
-    /* left: -100%; */
-}
-.left-enter.left-enter-active {
-    opacity: 1;
-    left: 0%;
-    transition: all 5000ms linear 5000ms;
-}
-
-.left-exit {
-    opacity: 1;
-    /* top: 100%; */
-}
-.left-exit.left-exit-active {
-    opacity: 0;
-    transition: all 5000ms linear;
-}
-.left-exit-done {
-    opacity: 0;
-    /* z-index: 0; */
-    transform: translateX(100%);
-}
-
-
-.translate-enter {
-    opacity: 0;
+    /* opacity: 0; */
     transform: translateX(0);
   }
   
-  .translate-enter.translate-enter-active {
-    opacity: 1;
+  .left-enter.left-enter-active {
+    /* opacity: 1; */
     /* transform: translateX(0); */
-    transition: all 2000ms ease;
+    transition: all 500ms ease;
   }
   
-  .translate-leave {
+  .left-exit {
       transform: translateX(0);
-  }
-  
-  .translate-leave.translate-leave-active {
-    transform: translateX(-100%);
-    transition: all 2000ms ease;
-  }
-  
-
-
-
-
-.right-enter {
-    /* transform: translateX(-100%); */
-    opacity: 1;
-}
-.right-enter-active {
-    animation: right-in 300ms ease-out forwards;
-}
-.right-leave {
-    transform: translateX(100%);
-}
-.right-leave-active {
-    animation: right-out 300ms ease-out forwards;
-}
-@keyframes right-in {
-    from {
+      /* left: 0px; */
+    }
+    
+    .left-exit.left-exit-active {
+        /* left: 100px; */
         transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0%);
-    }
-}
-@keyframes right-out {
-    from {
-        transform: translateX(0%);
-    }
-    to {
-        transform: translateX(100%);
-    }
-}
+        transition: all 500ms ease;
+  }

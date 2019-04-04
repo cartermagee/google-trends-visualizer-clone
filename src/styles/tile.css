@@ -4,7 +4,7 @@
     width: 100%;
 }
 .card {
-    position: relative;
+    position: absolute;
     align-items: center;
     display: flex;   
     flex-direction: row;
