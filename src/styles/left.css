@@ -54,19 +54,23 @@
     transition: all 2000ms ease;
   }
   
-  .slide-enter {
+
+
+
+
+.right-enter {
     transform: translateX(-100%);
 }
-.slide-enter-active {
-    animation: slide-in 300ms ease-out forwards;
+.right-enter-active {
+    animation: right-in 300ms ease-out forwards;
 }
-.slide-leave {
+.right-leave {
     transform: translateX(0%);
 }
-.slide-leave-active {
-    animation: slide-out 300ms ease-out forwards;
+.right-leave-active {
+    animation: right-out 300ms ease-out forwards;
 }
-@keyframes slide-in {
+@keyframes right-in {
     from {
         transform: translateX(-100%);
     }
@@ -74,7 +78,7 @@
         transform: translateX(0%);
     }
 }
-@keyframes slide-out {
+@keyframes right-out {
     from {
         transform: translateX(0%);
     }

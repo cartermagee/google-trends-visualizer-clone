@@ -5,7 +5,7 @@ import Colors from './data/colors.json';
 import Transitions from './data/transitions.json';
 import TypingSpeed from './data/typingSpeed.json';
 
-import Tile from './components/Tile2.js';
+import Tile from './components/Tile.js';
 
 class App extends Component {
   constructor(props){

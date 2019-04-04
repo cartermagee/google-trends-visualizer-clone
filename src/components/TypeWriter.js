@@ -46,8 +46,7 @@ class TypeWriter extends React.Component {
   handleClick() {
     console.warn("CLICKED INNNNN");
 
-    setTimeout(this.props.nextCard(), 3000)
-    // this.setState({text: "left"});
+    setTimeout(this.props.nextCard(), 3000);
   }
   render() {
     return (
