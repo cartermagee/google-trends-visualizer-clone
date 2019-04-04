@@ -3,6 +3,7 @@ import './styles/main.css';
 import Animals from './data/animal_names.json';
 import Colors from './data/colors.json';
 import Transitions from './data/transitions.json';
+import TypingSpeed from './data/typingSpeed.json';
 
 import Tile from './components/Tile2.js';
 
@@ -12,17 +13,18 @@ class App extends Component {
     this.state = {
       colors: [],
       animals: [],
+      typingSpeed: [],
       rows: 5,
       columns: 5,
       transitions: []
     }
   }
   componentWillMount(){
-    this.setState({animals: Animals, colors: Colors, transitions: Transitions});
+    this.setState({animals: Animals, colors: Colors, transitions: Transitions, typingSpeed: TypingSpeed});
   }
 
   renderGrid() {
-    const { colors, animals, rows, columns, transitions } = this.state;
+    const { colors, animals, rows, columns, transitions, typingSpeed } = this.state;
     const grid = {
         width: '100%',
         height: '100%',
@@ -41,7 +43,7 @@ class App extends Component {
       let row = [];
       while (j < columns) {
         let id = i+'-'+j;
-        row.push(<Tile id={id} key={id} animals={animals} transitions={transitions} colors={colors}/>);
+        row.push(<Tile id={id} key={id} animals={animals} transitions={transitions} colors={colors} typingSpeed={typingSpeed}/>);
         j++;
       }
       tiles.push(row);

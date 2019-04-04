@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 // import React from 'react';
 import TypeWriter from './TypeWriter.js';
-// import '../styles/tile.css';
+// import '../styles/left.css';
 
 class Card extends Component {
     render() {
-        const { color, animal, nextCard } = this.props;
+        const { animal, color, speed, nextCard } = this.props;
         return (
             <div className="card" style={{background: color}}>
-                <TypeWriter animal={animal} nextCard={nextCard}/>
+                <TypeWriter animal={animal} color={color} speed={speed} nextCard={nextCard}/>
             </div> 
         );
 

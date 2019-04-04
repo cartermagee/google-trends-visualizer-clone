@@ -10,15 +10,10 @@ class Tile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            animal: '',
-            animalIndex: '',
-            color: '',
-            colorIndex: '',
-            id: '',
             appearCard: true,
-            transition: props.transition,
             duration: 1000,
-            cards: []
+            cards: [],
+            card: {}
 
         }
     }
@@ -31,49 +26,22 @@ class Tile extends Component {
         const currColor = this.props.colors[currColorIndex];
         
         const currId = this.props.id+currAnimal;
+        const currentSpeed = this.props.typingSpeed[Math.floor(Math.random()*this.props.typingSpeed.length)]
 
         const currTransition = this.props.transitions[Math.floor(Math.random()*this.props.transitions.length)];
-        const nextTransition = this.props.transitions[Math.floor(Math.random()*this.props.transitions.length)];
+       
 
-        let nextAnimalIndex = Math.floor(Math.random()*this.props.animals.length);
-        if (nextAnimalIndex === currAnimalIndex && nextAnimalIndex != 0) {
-            nextAnimalIndex = nextAnimalIndex - 1;
-        } else if (nextAnimalIndex === 0){ 
-             nextAnimalIndex = nextAnimalIndex + 1;
-        }
-
-        const nextAnimal = this.props.animals[nextAnimalIndex];
-        
-        let nextColorIndex = Math.floor(Math.random()*this.props.colors.length);
-        if (nextColorIndex === currColorIndex) {
-            nextColorIndex = nextColorIndex - 1;
-        } else if (nextColorIndex === 0){ 
-            nextColorIndex = nextColorIndex + 1;
-       }
-        const nextColor = this.props.colors[nextColorIndex];
-        
-        const nextId = this.props.id+nextAnimal;
-        
-        let cards = [];
         let currentCard = {
             animal: currAnimal,
+            animalIndex: currAnimalIndex,
             color: currColor,
+            colorIndex: currColorIndex,
             id: currId,
-            transition: currTransition
+            transition: currTransition,
+            speed:currentSpeed
         };
         
-        let nextCard = {
-            animal: nextAnimal,
-            color: nextColor,
-            id: nextId,
-            transition: nextTransition
-        };
-        cards.push(currentCard, nextCard);
-        console.warn("cards = ", cards);
-        console.warn("***********************");
-        
-
-        this.setState({ cards });
+        this.setState({ card: currentCard });
     }
 
     componentWillUpdate(prevProps, prevState) {
@@ -81,59 +49,69 @@ class Tile extends Component {
         console.warn("prevProps= ", prevProps);
         console.warn("prevState= ", prevState);
 
-        // const {animals, colors} = {...prevProps.animals};
-        // const animal = animals[Math.floor(Math.random()*animals.length)];
-        // // const newColors = colors.splice(this.state.animalIndex);
-        // const color = colors[Math.floor(Math.random()*colors.length)];
-        // // const newAnimals = animals.splice(this.state.animalIndex);
-        // console.warn("id = ", this.state.id);
-        // console.warn("new animal = ", animal);
-        // console.warn("new color = ", color);
-        // console.warn("***********************");
-        // this.setState({
-        //     animal, 
-        //     color,
-        //     appearCard: true
-        // });
-
     }
-    shouldComponentUpdate(props) {
-        console.warn("prooooops= ", props);
 
-    }
     componentWillReceiveProps(props) {
         console.warn("prooooops= ", props);
 
     }
-    nextCard() {
-        console.warn("INNNN next card");
-        // const newAnimalArray = this.props.animals.splice(this.state.animalIndex);
-        // const animal = newAnimalArray[Math.floor(Math.random()*newAnimalArray.length)];
-        // if (animal === this.state.animal) {
-        //     console.warn("same animal");
-        //     // this.nextCard();
-        // }
-        // const newcolorArray = this.props.colors.splice(this.state.colorIndex);
-        // const color = newcolorArray[Math.floor(Math.random()*newcolorArray.length)];
-        // if (color === this.state.color) {
-        //     console.warn("same color");
-        //     // this.nextCard();
-        // }
-        //  this.setState({ color, animal, appearCard: true });
+    nextCard = () => {
+        let currentCard = {...this.state.card};
+        console.warn("INNNN prev card", currentCard);               
+        
+        let nextAnimalIndex = Math.floor(Math.random()*this.props.animals.length);
+        
+        if (nextAnimalIndex === currentCard.animalIndex && nextAnimalIndex !== 0) {
+            nextAnimalIndex = nextAnimalIndex - 1;
+        } else if (nextAnimalIndex === 0){ 
+            nextAnimalIndex = nextAnimalIndex + 1;
+        }
+        
+        const nextAnimal = this.props.animals[nextAnimalIndex];
+
+        
+        let nextColorIndex = Math.floor(Math.random()*this.props.colors.length);
+        if (nextColorIndex === currentCard.colorIndex && nextColorIndex !== 0) {
+            nextColorIndex = nextColorIndex - 1;
+        } else if (nextColorIndex === 0){ 
+            nextColorIndex = nextColorIndex + 1;
+        }
+        const nextColor = this.props.colors[nextColorIndex];
+        
+        
+        const nextId = this.props.id+nextAnimal;
+
+        const nextTransition = this.props.transitions[Math.floor(Math.random()*this.props.transitions.length)];
+        const nextSpeed = this.props.typingSpeed[Math.floor(Math.random()*this.props.typingSpeed.length)]
+        
+        let nextCard = {
+            animal: nextAnimal,
+            animalIndex: nextAnimalIndex,
+            color: nextColor,
+            colorIndex: nextColorIndex,
+            id: nextId,
+            transition: nextTransition,
+            speed: nextSpeed
+        };
+        console.warn("INNNN nextCard", nextCard);               
+        this.setState({ card: nextCard });
+
     }
     
     render(){
-    //     const { animal, color, id } = this.state;
-    //     const newId = id+animal;
+        const { appearCard, card } = this.state;
+        // const newId = id+animal;
+    console.warn(this.state);
+    
         return (
-            <TransitionGroup component='div'
-                className='tile'
-                // transitionName='slide'
-                // transitionEnterTimeout={2000}
-                // transitionLeaveTimeout={2000}
-                // transitionAppear={false}
-            >
-              <Card color={'#000'} animal={"goat"} nextCard={this.nextCard}></Card>
+            <TransitionGroup component='div' className='tile'>
+                <CSSTransition
+                    timeout={2000}
+                    classNames='left'
+                    unmountOnExit
+                >
+                    <Card key={card.id} animal={card.animal} color={card.color} speed={card.speed} nextCard={this.nextCard}/>
+                </CSSTransition>
             </TransitionGroup>
 
         );
