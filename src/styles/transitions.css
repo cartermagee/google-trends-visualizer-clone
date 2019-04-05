@@ -1,0 +1,37 @@
+.left-exit {
+    transform: translateX(0);
+}
+
+.left-exit.left-exit-active {
+    transform: translateX(-100%);
+    transition: all 500ms ease;
+}
+
+.left-exit-done{
+    display: none;
+}
+.right-exit {
+    transform: translateX(0);
+}
+
+.right-exit.right-exit-active {
+    transform: translateX(-100%);
+    transition: all 500ms ease;
+}
+.top-exit {
+    transform: translateY(0);
+}
+
+.top-exit.top-exit-active {
+    transform: translateY(100%);
+    transition: all 500ms ease;
+}
+
+.bottom-exit {
+    transform: translateY(0);
+}
+
+.bottom-exit.bottom-exit-active {
+    transform: translateY(-100%);
+    transition: all 500ms ease;
+}

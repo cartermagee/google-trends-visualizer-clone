@@ -1,16 +1,58 @@
 .tile {
-    position: relative;
     overflow: hidden;
+    position: relative;
     width: 100%;
 }
 .card {
-    position: absolute;
-    align-items: center;
+    /* align-items: center;
     display: flex;   
     flex-direction: row;
-    font-size: 2em;
-    font-weight: 400;
+     */
+     display: grid;
+     grid-template-columns: 1fr;
+     /* justify-items: center; */
+     align-content: center; 
     height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
     text-transform: capitalize;
     width: 100%;
 }
+.typing {
+    text-shadow: 0 0.025em 0 rgba(0,0,0,0.1);
+    word-wrap: break-word;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    margin: 10px;
+    font-size: 2em;
+    font-weight: 400;
+  }
+  #cursor {
+    animation: blink .8s steps(1) infinite;
+    border-left: 1px solid #fff;
+  }
+  
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  .fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.5s;
+  }
+  
+  @keyframes fadeInOpacity {
+    0% {
+      opacity: 0;
+      }
+      100% {
+      opacity: 1;
+      }
+  }

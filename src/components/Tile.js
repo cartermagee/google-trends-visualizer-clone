@@ -1,34 +1,32 @@
-import React, {Component, useState} from 'react';
+import React, { Component } from 'react';
 import '../styles/tile.css';
-import '../styles/left.css';
-import { TransitionGroup, CSSTransition, ReplaceTransition } from 'react-transition-group'
+import '../styles/transitions.css';
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Card from './Card.js';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 
 class Tile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            appearCard: true,
             duration: 1000,
             cards: [],
             card: {}
-
         }
     }
     componentWillMount() {
+        const { animals, colors, id, transitions, typingSpeed } = this.props;
+        const currAnimalIndex = Math.floor(Math.random()*animals.length);
+        const currAnimal = animals[currAnimalIndex];
         
-        const currAnimalIndex = Math.floor(Math.random()*this.props.animals.length);
-        const currAnimal = this.props.animals[currAnimalIndex];
+        const currColorIndex = Math.floor(Math.random()*colors.length);
+        const currColor = colors[currColorIndex];
         
-        const currColorIndex = Math.floor(Math.random()*this.props.colors.length);
-        const currColor = this.props.colors[currColorIndex];
-        
-        const currId = this.props.id+currAnimal;
-        const currentSpeed = this.props.typingSpeed[Math.floor(Math.random()*this.props.typingSpeed.length)]
+        const currId = id+" "+currAnimal;
+        const currentSpeed = typingSpeed[Math.floor(Math.random()*typingSpeed.length)]
 
-        const currTransition = this.props.transitions[Math.floor(Math.random()*this.props.transitions.length)];
+        const currTransition = transitions[Math.floor(Math.random()*transitions.length)];
        
 
         let currentCard = {
@@ -41,48 +39,33 @@ class Tile extends Component {
             speed:currentSpeed
         };
         
-        this.setState({ card: currentCard });
+        this.setState({ card: currentCard, id: id });
     }
 
-    componentWillUpdate(prevProps, prevState) {
-        console.warn("currentState = ", this.state);
-        console.warn("prevProps= ", prevProps);
-        console.warn("prevState= ", prevState);
-
-    }
-
-    componentWillReceiveProps(props) {
-        console.warn("prooooops= ", props);
-
-    }
     nextCard = () => {
+        const { animals, colors, id, transitions, typingSpeed } = this.props;
+
         let currentCard = {...this.state.card};
-        console.warn("INNNN prev card", currentCard);               
         
-        let nextAnimalIndex = Math.floor(Math.random()*this.props.animals.length);
+        let nextAnimalIndex = Math.floor(Math.random()*animals.length);
         
         if (nextAnimalIndex === currentCard.animalIndex && nextAnimalIndex !== 0) {
             nextAnimalIndex = nextAnimalIndex - 1;
         } else if (nextAnimalIndex === 0){ 
-            nextAnimalIndex = nextAnimalIndex + 1;
+            nextAnimalIndex = nextAnimalIndex + 2;
         }
         
-        const nextAnimal = this.props.animals[nextAnimalIndex];
+        const nextAnimal = animals[nextAnimalIndex];
 
         
-        let nextColorIndex = Math.floor(Math.random()*this.props.colors.length);
-        if (nextColorIndex === currentCard.colorIndex && nextColorIndex !== 0) {
-            nextColorIndex = nextColorIndex - 1;
-        } else if (nextColorIndex === 0){ 
-            nextColorIndex = nextColorIndex + 1;
-        }
-        const nextColor = this.props.colors[nextColorIndex];
+        const nextColorIndex = Math.floor(Math.random()*colors.length);
+        const nextColor = colors[nextColorIndex];
         
         
-        const nextId = this.props.id+nextAnimal;
+        const nextId = id+" "+nextAnimal;
 
-        const nextTransition = this.props.transitions[Math.floor(Math.random()*this.props.transitions.length)];
-        const nextSpeed = this.props.typingSpeed[Math.floor(Math.random()*this.props.typingSpeed.length)]
+        const nextTransition = transitions[Math.floor(Math.random()*transitions.length)];
+        const nextSpeed = typingSpeed[Math.floor(Math.random()*typingSpeed.length)]
         
         let nextCard = {
             animal: nextAnimal,
@@ -93,24 +76,21 @@ class Tile extends Component {
             transition: nextTransition,
             speed: nextSpeed
         };
-        console.warn("INNNN nextCard", nextCard);               
         this.setState({ card: nextCard });
 
     }
     
     render(){
-        const { appearCard, card } = this.state;
-        // const newId = id+animal;
-    console.warn(this.state);
-        // const childWithProps = 
+        const { card } = this.state;
         return (
-            <TransitionGroup component='div' className='tile'>
+            <TransitionGroup component='div' id={card.id} className='tile'>
                 <CSSTransition
-                in={true}
+                    in={true}
                     key={card.id}
-                    timeout={5000}
-                    classNames='left'
-                    unmountOnExit
+                    timeout={500}
+                    classNames={card.transition}
+                    unmountOnExit={true}
+                    mountOnEnter={true}
                 > 
                     <Card animal={card.animal} color={card.color} speed={card.speed} nextCard={this.nextCard}/>
                 </CSSTransition>
@@ -120,9 +100,12 @@ class Tile extends Component {
     }
 }
 
-// Tile.propTypes = {
-//     animals: PropTypes.array.isRequired,
-//     colors: PropTypes.array.isRequired
-// }
+Tile.propTypes = {
+    animals: PropTypes.array.isRequired,
+    colors: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired,
+    transitions: PropTypes.array.isRequired,
+    typingSpeed: PropTypes.array.isRequired
+}
 
 export default Tile;
