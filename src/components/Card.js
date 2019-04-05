@@ -10,28 +10,24 @@ class Card extends Component {
       }
 
   componentDidMount() {
-    this.timeout = null;
     this.handleType();
   }
 
-    componentWillUnmount() {
-        clearTimeout(this.timeout);
-        // console.warn("UNMOUNT");
-    }
   handleType = () => {
     const { animal, speed,  nextCard} = this.props;
-    const { text } = {...this.state};
-    this.timeout = setTimeout(() => {
-        this.setState({
-            text: animal.substring(0, text.length + 1),
-        })
+    const { text } = this.state;
+
+    setTimeout(() => {
+      this.setState({
+        text: animal.substring(0, text.length + 1),
+      })
     }, speed)
-    
+
     if (text === animal) {
-        setTimeout( nextCard, 2500)
-        return;
+      setTimeout( nextCard, 2500)
+      return;
     }
-    this.timeout = setTimeout(this.handleType, speed);
+    setTimeout(this.handleType, speed);
   };
 
     render() {

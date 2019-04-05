@@ -30,11 +30,10 @@ class GridChooser extends Component {
         )
     }
     handleEnter() {
-        this.setState({hover: true})
-        
+        this.setState({hover: true});
     }
     handleLeave() {
-        this.setState({hover: false})
+        this.setState({hover: false});
         
     }
     render() {

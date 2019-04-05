@@ -41,11 +41,6 @@ class Tile extends Component {
         this.setState({ card: currentCard, id: id });
     }
 
-    componentWillUnmount() {
-        console.warn("unmounted tile");
-        
-    }
-
     nextCard = () => {
         const { animals, colors, id, transitions, typingSpeed } = this.props;
 
