@@ -4,13 +4,8 @@
     width: 100%;
 }
 .card {
-    /* align-items: center;
-    display: flex;   
-    flex-direction: row;
-     */
      display: grid;
      grid-template-columns: 1fr;
-     /* justify-items: center; */
      align-content: center; 
     height: 100%;
     margin: 0px;
@@ -26,7 +21,8 @@
     text-decoration: none;
     color: #fff;
     margin: 10px;
-    font-size: 2em;
+    /* font-size: 2em; */
+    font-size: calc(1.4em + 1vw);
     font-weight: 400;
   }
   #cursor {

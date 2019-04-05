@@ -5,7 +5,6 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Card from './Card.js';
 import PropTypes from 'prop-types';
 
-
 class Tile extends Component {
     constructor(props) {
         super(props)
@@ -40,6 +39,11 @@ class Tile extends Component {
         };
         
         this.setState({ card: currentCard, id: id });
+    }
+
+    componentWillUnmount() {
+        console.warn("unmounted tile");
+        
     }
 
     nextCard = () => {
@@ -77,7 +81,6 @@ class Tile extends Component {
             speed: nextSpeed
         };
         this.setState({ card: nextCard });
-
     }
     
     render(){

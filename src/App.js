@@ -6,6 +6,8 @@ import Transitions from './data/transitions.json';
 import TypingSpeed from './data/typingSpeed.json';
 
 import Tile from './components/Tile.js';
+import Logo from './components/Logo.js';
+import GridChooser from './components/GridChooser.js';
 
 class App extends Component {
   constructor(props){
@@ -14,15 +16,17 @@ class App extends Component {
       colors: [],
       animals: [],
       typingSpeed: [],
-      rows: 5,
-      columns: 5,
+      rows: '',
+      columns: '',
       transitions: []
     }
   }
   componentWillMount(){
-    this.setState({animals: Animals, colors: Colors, transitions: Transitions, typingSpeed: TypingSpeed});
+    this.setState({animals: Animals, colors: Colors, transitions: Transitions, typingSpeed: TypingSpeed, rows: 5, columns: 5});
   }
-
+  setGrid = (dimensions) => {
+    this.setState({rows: dimensions[0], columns: dimensions[1]});
+  }
   renderGrid() {
     const { colors, animals, rows, columns, transitions, typingSpeed } = this.state;
     const grid = {
@@ -58,6 +62,8 @@ class App extends Component {
   render() {
     return (
       <main>
+        <GridChooser setGrid={this.setGrid}/>
+        <Logo/>
         {this.renderGrid()}
       </main>
     );
