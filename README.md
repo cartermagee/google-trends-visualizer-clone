@@ -1,6 +1,5 @@
-# pairin-grid-jaun
-## clone of google trends visualizer
-
+# Clone of Trends Google Trends Visualizer
+[Google Trends Visualizer](https://trends.google.com/trends/hottrends/visualize)
 [Carter's Clone](http://carters-trends-clone.surge.sh/)
 
 ### TODO
